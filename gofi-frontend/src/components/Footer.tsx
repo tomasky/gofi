@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
             <div className="flex flex-col items-center p-4">
                 <ul className="flex flex-row space-x-10 text-gray-600 font-base text-sm">
                     <li>
-                        <a href="https://github.com/Sloaix/Gofi" className="transition-all hover:text-indigo-500">
+                        <a href="https://github.com/tomasky/gofi" className="transition-all hover:text-indigo-500">
                             Github
                         </a>
                     </li>

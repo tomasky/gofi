@@ -39,7 +39,7 @@ const NavMenu: React.FC = () => {
                         <RiBook2Line />
                         <span className="px-2 text-sm hidden sm:block">{t('menu.doc')}</span>
                     </a>
-                    <a href="https://github.com/Sloaix/Gofi" target="_blank" className={menuItemClasses('')}>
+                    <a href="https://github.com/tomasky/gofi" target="_blank" className={menuItemClasses('')}>
                         <RiGithubFill />
                         <span className="pl-2 pr-1 text-sm">{t('menu.stars')}</span>
 
