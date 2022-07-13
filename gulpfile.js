@@ -15,8 +15,6 @@ const backendOutputFolder = path.join(backendFolder, "output");
 const outputFolder = path.join(__dirname, "output");
 const goPath = shell.exec("go env GOPATH", { silent: true }).stdout.trim();
 const goBinDir = `${goPath}/bin`;
-const xgoPath = `${goBinDir}/xgo`;
-const xgoExist = shell.test("-e", xgoPath);
 
 const lastCommitId = shell
   .exec("git rev-parse --short=8 HEAD", { silent: true })
@@ -47,8 +45,6 @@ function printCurrentBuildInfo() {
   console.log(`====> outputFolder ${outputFolder}`);
   console.log(`====> goPath ${goPath}`);
   console.log(`====> goBinDir ${goBinDir}`);
-  console.log(`====> xgoPath ${xgoPath}`);
-  console.log(`====> xgoExist ${xgoExist}`);
 }
 
 gulp.task("build-frontend", (done) => {
@@ -64,24 +60,17 @@ gulp.task("build-backend", (done) => {
   shell.mkdir("-p", backendOutputFolder);
 
   shell.cd(backendFolder);
-  // if xgo not exist
-  if (!xgoExist) {
-    console.log("xgo not exist, try to get");
-    shell.exec("go install -v src.techknowlogick.com/xgo@latest");
-  }
 
   // get all dependencies
   shell.exec("go get -v -t -d");
 
-  // cross compile by xgo
   // use flag [-linkmode "external" -extldflags "-static"] to compile by static link, see https://johng.cn/cgo-enabled-affect-go-static-compile/
   shell.exec(
-    `${xgoPath} -out=gofi -tags=${currentMode} -ldflags='-w -s -X gofi/db.version=${version} -linkmode "external" -extldflags "-static"' -out=gofi --dest=./output --targets=android-16/arm64,linux/amd64 ./`
+    `go build -tags=${currentMode} -ldflags='-w -s -X gofi/db.version=${version} -linkmode "external" -extldflags "-static"' -o gofi-linux-amd64 && cp gofi-linux-amd64 ./output/`
   );
 
   shell.exec(
-  //  `${xgoPath} -out=gofi -tags=${currentMode} -ldflags='-w -s -X gofi/db.version=${version}' -out=gofi --dest=./output --targets=darwin/* ./`
-  `env CGO_ENABLED=0 GOOS=android GOARCH=arm64 go build -tags=${currentMode} -ldflags='-w -s -X gofi/db.version=${version} ' -o gofi-arm64  && cp gofi-arm64  ./output/`
+    `env CGO_ENABLED=0 GOOS=android GOARCH=arm64 go build -tags=${currentMode} -ldflags='-w -s -X gofi/db.version=${version} ' -o gofi-android-arm64  && cp gofi-android-arm64  ./output/`
   );
 
   done();
