@@ -47,6 +47,6 @@ jobs:
           name: Release ${{ steps.get-version.outputs.VERSION }}
           files: |
             ./output/gofi-linux-amd64
-            ./output/gofi-arm64
+            ./output/gofi-android-arm64
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
