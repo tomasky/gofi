@@ -19,7 +19,7 @@ func init() {
 
 func createEngine() *xorm.Engine {
 	// connect to database
-	engine, err := xorm.NewEngine("sqlite3", tool.GetDatabaseFilePath())
+	engine, err := xorm.NewEngine("sqlite", tool.GetDatabaseFilePath())
 	if err != nil {
 		logrus.Println(err)
 		panic("failed to connect database")
