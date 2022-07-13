@@ -4,14 +4,14 @@ go 1.17
 
 require (
 	github.com/aviddiviner/gin-limit v0.0.0-20170918012823-43b5f79762c1
-	github.com/gabriel-vasile/mimetype v1.4.0
-	github.com/gin-gonic/gin v1.7.4
-	github.com/go-xorm/xorm v0.7.9
-	github.com/golang-jwt/jwt/v4 v4.1.0
-	github.com/mattn/go-sqlite3 v2.0.3+incompatible
+	github.com/gabriel-vasile/mimetype v1.4.1
+	github.com/gin-gonic/gin v1.8.1
+	xorm.io/xorm v1.3.1
+	github.com/golang-jwt/jwt/v4 v4.4.2
+	modernc.org/sqlite v1.17.3
 	github.com/sirupsen/logrus v1.8.1
 	golang.org/x/text v0.3.7
-	golang.org/x/tools v0.1.7
+	golang.org/x/tools v0.1.11
 )
 
 require (
