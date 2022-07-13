@@ -76,11 +76,12 @@ gulp.task("build-backend", (done) => {
   // cross compile by xgo
   // use flag [-linkmode "external" -extldflags "-static"] to compile by static link, see https://johng.cn/cgo-enabled-affect-go-static-compile/
   shell.exec(
-    `${xgoPath} -out=gofi -tags=${currentMode} -ldflags='-w -s -X gofi/db.version=${version} -linkmode "external" -extldflags "-static"' -out=gofi --dest=./output --targets=windows/amd64,linux/amd64,linux/arm ./`
+    `${xgoPath} -out=gofi -tags=${currentMode} -ldflags='-w -s -X gofi/db.version=${version} -linkmode "external" -extldflags "-static"' -out=gofi --dest=./output --targets=android-16/arm64,linux/amd64 ./`
   );
 
   shell.exec(
-    `${xgoPath} -out=gofi -tags=${currentMode} -ldflags='-w -s -X gofi/db.version=${version}' -out=gofi --dest=./output --targets=darwin/* ./`
+  //  `${xgoPath} -out=gofi -tags=${currentMode} -ldflags='-w -s -X gofi/db.version=${version}' -out=gofi --dest=./output --targets=darwin/* ./`
+  `env CGO_ENABLED=0 GOOS=android GOARCH=arm64 go build -tags=${currentMode} -ldflags='-w -s -X gofi/db.version=${version} ' -o gofi-arm64  && cp gofi-arm64  ./output/`
   );
 
   done();

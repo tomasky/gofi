@@ -1,9 +1,9 @@
 package db
 
 import (
-	"github.com/go-xorm/xorm"
+	"xorm.io/xorm"
 	//import sqlite3 driver
-	_ "github.com/mattn/go-sqlite3"
+	_ "modernc.org/sqlite"
 	"github.com/sirupsen/logrus"
 	"gofi/env"
 	"gofi/tool"
